@@ -1,0 +1,14 @@
+{
+  "name": "White Fox Power",
+  "namespace": "X+",
+  "match": [
+    "*://*.whiteboardfox.com/*"
+  ],
+  "run-at": "document-start",
+  "homepageURL": "https://github.com/reino08/ByakkoNoPawaa",
+  "downloadURL": "https://reino08.github.io/ByakkoNoPawaa/\u767d\u72d0\u306e\u30d1\u30ef\u30fc.user.js",
+  "grant": [
+    "unsafeWindow"
+  ],
+  "noframes": true
+}
