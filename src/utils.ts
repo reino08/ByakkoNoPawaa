@@ -1,5 +1,4 @@
 export function onLoad(callback: () => void) {
-    console.log(document.readyState)
     if (document.readyState == 'complete')
         return callback();
     window.addEventListener("load", callback);
