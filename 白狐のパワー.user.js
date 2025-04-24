@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        White Fox Power
+// @namespace   X+
+// @match       *://*.whiteboardfox.com/*
+// @run-at      document-start
+// @homepageURL https://github.com/reino08/ByakkoNoPawaa
+// @downloadURL https://reino08.github.io/ByakkoNoPawaa/白狐のパワー.user.js
+// @noframes
+// @grant       unsafeWindow
+// ==/UserScript==
+var e="AIzaSyC8xW9BmOuZJJknjuXLozD-0wfRdExoZMQ";function t(e){if(console.log(document.readyState),"complete"==document.readyState)return e();window.addEventListener("load",e)}function n(e){return new Promise((t=>setTimeout(t,e)))}"/login.jsp"==document.location.pathname?t((async()=>{const t="abcdefghijklmnopqrstuvwxyz",r=e=>new Array(e).fill(0).map((e=>t[Math.floor(26*Math.random())])).join("");await a();const d=r(10),u=await async function(t,n,a){await fetch(`${o}/createAuthUri?key=${e}`,{...i,body:JSON.stringify({identifier:t,continueUri:`${document.location.origin}/login.jsp`})});let{idToken:c}=await fetch(`${o}/signupNewUser?key=${e}`,{...i,body:JSON.stringify({email:t,password:a,returnSecureToken:!0})}).then((e=>e.json()));return await fetch(`${o}/setAccountInfo?key=${e}`,{...i,body:JSON.stringify({idToken:c,displayName:n,returnSecureToken:!0})}),c}(`${r(16)}@${r(16)}.com`,d,r(20));await function(e,t){return c(`${document.location.origin}/login?idToken=${e}&name=${encodeURI(t)}&redirect=%2F`)}(u,d),await n(1250);const s=document.location.search,l=s.indexOf("redirect=");let m=s.substring(l).indexOf("&");if(-1==l)return document.location=document.location.origin;-1==m&&(m=void 0),document.location=document.location.origin+"/"+s.substring(l+9,m)})):document.getElementsByTagName("h1")?.[0]?.textContent?.includes("403")&&t((async()=>{await a(),await n(1250),document.location.reload()}));const o="https://www.googleapis.com/identitytoolkit/v3/relyingparty",i={method:"POST",headers:[["Content-Type","application/json"]]};function a(){return c(`${document.location.origin}/logout`)}async function c(e){new Promise((t=>{const n=document.createElement("iframe");n.style.display="none",n.src=e,n.onload=()=>t(n.remove()),document.body.appendChild(n)}))}let r=unsafeWindow.prompt;/\/[0-9]{8}-[0-9]{4}-[0-9]{4}/.test(document.location.pathname)&&document.addEventListener("keydown",(e=>{if("g"==e.key){let e=prompt("Enter repeated text (empty to clear):");unsafeWindow.prompt=e?()=>e:r}}));
