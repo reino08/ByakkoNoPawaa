@@ -1,1 +1,2 @@
-import "./modules/**/*.ts";
+import "./routes/*.ts";
+import "./routes/*/index.ts";

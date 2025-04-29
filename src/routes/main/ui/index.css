@@ -1,0 +1,25 @@
+:has(>#feedback-banner) {
+    display: none;
+}
+
+:has(>#canvasId) {
+    width: calc(100% - 440px);
+}
+
+#canvasId {
+    height: 100vh;
+    width: calc(100%);
+}
+
+#wfp-ui-root {
+    position: fixed;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    border: 0;
+}
+
+#right-ad-area,
+#bottom-ad-area {
+    display: none !important;
+}

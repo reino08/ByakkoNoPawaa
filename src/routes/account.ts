@@ -4,7 +4,7 @@ import { onLoad, delay } from "../utils.ts";
 if (document.location.pathname == "/login.jsp") {
     onLoad(async () => {
         const values = "abcdefghijklmnopqrstuvwxyz";
-        const gen = length => new Array(length).fill(0).map(_ => values[Math.floor(Math.random() * values.length)]).join("");
+        const gen = (length: number) => new Array(length).fill(0).map(_ => values[Math.floor(Math.random() * values.length)]).join("");
 
         await logout();
         const name = gen(10);

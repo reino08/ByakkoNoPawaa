@@ -14,7 +14,7 @@ type LobbyDocument = {
 function override() {
     document.close();
     onLoad(() => {
-        document.body.innerHTML = ""
+        document.body.innerHTML = "";
 
         {
             const button = document.createElement("button");
@@ -52,7 +52,7 @@ async function load() {
 }
 
 async function renderDocument({ domainUrl, diagramName, preferredUserName, activeUsers }: LobbyDocument, parent: HTMLDivElement) {
-    const url = `${domainUrl}/${diagramName}`;
+    const url = `${domainUrl}${diagramName}`;
 
     const element = document.createElement("a");
     element.href = url;
