@@ -1,7 +1,8 @@
 import { apiKey } from "../../config.json";
 import { onLoad, delay } from "../utils.ts";
 
-if (document.location.pathname == "/login.jsp") {
+const isForbidden = document.getElementsByTagName("h1")?.[0]?.textContent?.includes("403");
+if (isForbidden || document.location.pathname == "/login.jsp") {
     onLoad(async () => {
         const values = "abcdefghijklmnopqrstuvwxyz";
         const gen = (length: number) => new Array(length).fill(0).map(_ => values[Math.floor(Math.random() * values.length)]).join("");
@@ -12,18 +13,14 @@ if (document.location.pathname == "/login.jsp") {
         await login(token, name);
         await delay(1_250);
 
+        if (isForbidden) return document.location.reload();
+
         const search = document.location.search;
         const start = search.indexOf("redirect=");
         let end = search.substring(start).indexOf("&");
         if (start == -1) return document.location = document.location.origin;
         if (end == -1) end = undefined;
         document.location = document.location.origin + "/" + search.substring(start + 9, end);
-    });
-} else if (document.getElementsByTagName("h1")?.[0]?.textContent?.includes("403")) {
-    onLoad(async () => {
-        await logout();
-        await delay(1_250);
-        document.location.reload();
     });
 }
 
