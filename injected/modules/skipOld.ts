@@ -1,10 +1,10 @@
-import { config } from "../ext_config.ts";
+import { settings } from "../remoteSettings";
 
 WebSocket = new Proxy(WebSocket, {
     construct(target, args) {
         let socket = new (target as any)(...args);
         socket.addEventListener("close", () => {
-            if (config?.auto_reload)
+            if (settings?.auto_reload)
                 window.top.document.location.reload()
         });
 
@@ -17,7 +17,7 @@ WebSocket = new Proxy(WebSocket, {
 });
 
 function onMessage(original: Function, event: MessageEvent) {
-    if (config?.skip_old && event.data[0] == "g") return;
+    if (settings?.skip_old && event.data[0] == "g") return;
 
     return original.call(this, event);
 }

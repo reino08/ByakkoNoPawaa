@@ -1,8 +1,8 @@
-import injection from "../../../public/injected.js";
-import { config, onConfigUpdate } from "../../config.ts";
+import injection from "../../public/injected.js";
+import { settings, onSettingsUpdate } from "../settings.js";
 
 let original = document.createElement;
-document.createElement = function (type) {
+document.createElement = function (type: string) {
   let element = original.apply(this, arguments);
   if (type != "iframe") return element;
 
@@ -17,7 +17,7 @@ document.createElement = function (type) {
         return original.call(this, data + `<script>${injection}</script>`);
       }
 
-      onConfigUpdate.push(() => element.contentWindow.postMessage(["set-all", JSON.stringify(config)], '*'));
+      onSettingsUpdate.push(() => element.contentWindow.postMessage(["set-all", JSON.stringify(settings)], '*'));
       return window;
     },
   });

@@ -1,2 +1,2 @@
-import "./routes/*.ts";
-import "./routes/*/index.ts";
+import "./modules/**/*";
+import "./addons"

@@ -1,9 +1,9 @@
 <script>
-  import { config } from "./index.ts";
+  import { settings } from "./index.ts";
   import { send } from "./commands.ts";
 </script>
 
-{#each Object.entries(config) as [key, value]}
+{#each Object.entries(settings) as [key, value]}
   <div>
     {#if typeof value == "number"}
       <label for={key}>{key}</label>

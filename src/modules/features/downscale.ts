@@ -1,5 +1,5 @@
-import { config, withConfig } from "../../config.ts";
-import { onCanvas } from "../../utils.ts";
+import { settings, withSettings } from "../../settings";
+import { onCanvas } from "../../utils";
 
 let canvas: HTMLCanvasElement | undefined;
 onCanvas((_canvas) => {
@@ -12,7 +12,7 @@ onCanvas((_canvas) => {
     };
     observer.observe(canvas, options)
 
-    withConfig(prop => {
+    withSettings(prop => {
         if (prop && prop != "downscale") return;
         scale();
     });
@@ -21,7 +21,7 @@ onCanvas((_canvas) => {
         observer.disconnect();
 
         let rect = canvas?.getBoundingClientRect();
-        if (config?.downscale) {
+        if (settings?.downscale) {
             canvas.width = rect.width / 2;
             canvas.height = rect.height / 2;
         } else {
@@ -39,7 +39,7 @@ EventTarget.prototype.addEventListener = function (type, callback, options) {
         if (event.clientX) {
             let rect = canvas?.getBoundingClientRect();
             if (
-                rect && config?.downscale &&
+                rect && settings?.downscale &&
                 event.clientX >= rect.x &&
                 event.clientX <= rect.x + rect.width &&
                 event.clientY >= rect.y &&

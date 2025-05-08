@@ -1,7 +1,5 @@
-import { onLoad } from "../utils.ts";
-
-if (document.location.pathname == "/lobby.jsp")
-    override();
+import { Lobby } from "../../routes";
+import { onLoad } from "../../utils";
 
 type LobbyDocument = {
     diagramName: string,
@@ -11,7 +9,7 @@ type LobbyDocument = {
     domainUrl: string,
 }
 
-function override() {
+if (Lobby) {
     document.close();
     onLoad(() => {
         document.body.innerHTML = "";

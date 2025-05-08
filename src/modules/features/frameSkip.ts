@@ -1,4 +1,4 @@
-import { withConfig } from "../../config.ts";
+import { withSettings } from "../../settings";
 
 let timestamp = performance.now();
 let max = 0;
@@ -11,7 +11,7 @@ const targets = ["fillText", "stroke"];
     requestAnimationFrame(frame);
 })();
 
-withConfig((prop, config) => {
+withSettings((prop, config) => {
     if (prop && prop != "min_framrate") return
 
     if (config.min_framerate) {

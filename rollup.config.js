@@ -33,6 +33,7 @@ export default [
       globImport({ format: "import" }),
       resolveJsonModule(),
       styles({ minimize: true }),
+      nodeResolve({ extensions: [".ts"] }),
       swc(swcOpts),
       terser(),
     ],
@@ -41,7 +42,6 @@ export default [
     input: "src/index.ts",
     output: {
       file: "public/\u767d\u72d0\u306e\u30d1\u30ef\u30fc.user.js",
-      inlineDynamicImports: true,
     },
     plugins: [
       globImport({ format: "import" }),
@@ -50,6 +50,7 @@ export default [
       importAsString({
         include: ["**/injected.js"],
       }),
+      nodeResolve({ extensions: [".ts"] }),
       swc(swcOpts),
       terser(),
       metablock(),

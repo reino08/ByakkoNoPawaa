@@ -1,19 +1,36 @@
-import { apiKey } from "../../config.json";
-import { onLoad, delay } from "../utils.ts";
+import { apiKey } from "../../../config.json";
+import { Forbidden, Login } from "../../routes";
+import { settings } from "../../settings";
+import { delay, onLoad } from "../../utils";
 
-const isForbidden = document.getElementsByTagName("h1")?.[0]?.textContent?.includes("403");
-if (isForbidden || document.location.pathname == "/login.jsp") {
+if (Forbidden || Login)
     onLoad(async () => {
-        const values = "abcdefghijklmnopqrstuvwxyz";
-        const gen = (length: number) => new Array(length).fill(0).map(_ => values[Math.floor(Math.random() * values.length)]).join("");
+        const alpha = "abcdefghijklmnopqrstuvwxyz"
+        const getGenerator = (values: string) => (length: number) => new Array(length).fill(0).map(_ => values[Math.floor(Math.random() * values.length)]).join("");
+        const gen = getGenerator(alpha);
 
         await logout();
         const name = gen(10);
         const token = await create(`${gen(16)}@${gen(16)}.com`, name, gen(20));
         await login(token, name);
-        await delay(1_250);
+        await delay(1500);
 
-        if (isForbidden) return document.location.reload();
+        if (settings.username_prefix) {
+            let name = settings.username_prefix.trim();
+            if (!/^[a-zA-Z0-9._]{1,32}$/.test(name)) {
+                alert(`Invaild username prefix. Was "${name}". Removing.`);
+                settings.username_prefix = "";
+            } else {
+                const data = new FormData();
+                data.append("preferredUserName", name + getGenerator(alpha + "1234567890_.")(32 - name.length))
+                await fetch(location.origin + "/api/user", {
+                    body: data,
+                    "method": "PUT",
+                }).catch(() => { });
+            }
+        }
+
+        if (Forbidden) return document.location.reload();
 
         const search = document.location.search;
         const start = search.indexOf("redirect=");
@@ -22,7 +39,6 @@ if (isForbidden || document.location.pathname == "/login.jsp") {
         if (end == -1) end = undefined;
         document.location = document.location.origin + "/" + search.substring(start + 9, end);
     });
-}
 
 const API_BASE = "https://www.googleapis.com/identitytoolkit/v3/relyingparty";
 const OPTIONS: RequestInit = {
@@ -31,13 +47,14 @@ const OPTIONS: RequestInit = {
 };
 
 export async function create(email: string, displayName: string, password: string): Promise<string> {
+    // TODO: determine which of these can be removed
     await fetch(`${API_BASE}/createAuthUri?key=${apiKey}`, {
         ...OPTIONS,
         body: JSON.stringify({
             identifier: email,
             continueUri: `${document.location.origin}/login.jsp`,
         })
-    });
+    }).catch(console.error);
 
     let { idToken } = await fetch(`${API_BASE}/signupNewUser?key=${apiKey}`, {
         ...OPTIONS,
@@ -46,7 +63,7 @@ export async function create(email: string, displayName: string, password: strin
             password,
             returnSecureToken: true,
         }),
-    }).then(x => x.json());
+    }).then(x => x.json()).catch(console.error);
 
     await fetch(`${API_BASE}/setAccountInfo?key=${apiKey}`, {
         ...OPTIONS,
@@ -67,7 +84,7 @@ export function logout(): Promise<void> {
 }
 
 async function frameCall(src: string): Promise<void> {
-    new Promise(res => {
+    return new Promise(res => {
         const iframe = document.createElement("iframe");
         iframe.style.display = "none";
         iframe.src = src;

@@ -1,8 +1,8 @@
 import "./index.css";
-import { ui_url } from "../../../../config.json";
-import { config } from "../../../config.ts";
-import { onCanvas } from "../../../utils.ts";
-import * as macros from "../macros/index.ts";
+import { ui_url } from "../../../config.json";
+import { settings } from "../../settings";
+import { onCanvas } from "../../utils";
+import * as macros from "../macros/index";
 export { };
 
 onCanvas(canvas => {
@@ -13,7 +13,7 @@ onCanvas(canvas => {
         "iframe",
         {
             id: "wfp-ui-root",
-            src: ui_url + "#" + encodeURI(JSON.stringify(config)),
+            src: ui_url + "#" + encodeURI(JSON.stringify(settings)),
         }
     );
 });
@@ -24,9 +24,7 @@ window.addEventListener("message", event => {
     const [command, ...args] = event.data;
     if (command == "set") {
         const [key, value] = args;
-        config[key] = value;
-    } else if (command == "get-all") {
-        event.source.postMessage(["set-all", JSON.stringify(config)]);
+        settings[key] = value;
     } else if (command == "macro") {
         const [key, state] = args;
         macros[key][state ? "start" : "stop"]();
