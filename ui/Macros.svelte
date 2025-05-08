@@ -1,7 +1,10 @@
 <script>
   import { send } from "./commands.ts";
 
-  let actions = [["Draw random", "randomDraw"]];
+  let actions = [
+    ["Draw random", "randomDraw"],
+    ["Spam text", "spamText"],
+  ];
 </script>
 
 {#each actions as [display, id]}
