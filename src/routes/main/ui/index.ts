@@ -2,6 +2,7 @@ import "./index.css";
 import { ui_url } from "../../../../config.json";
 import { config } from "../../../config.ts";
 import { onCanvas } from "../../../utils.ts";
+import * as macros from "../macros/index.ts";
 export { };
 
 onCanvas(canvas => {
@@ -26,5 +27,8 @@ window.addEventListener("message", event => {
         config[key] = value;
     } else if (command == "get-all") {
         event.source.postMessage(["set-all", JSON.stringify(config)]);
+    } else if (command == "macro") {
+        const [key, state] = args;
+        macros[key][state ? "start" : "stop"]();
     } else console.warn("Unknown command", command);
 });

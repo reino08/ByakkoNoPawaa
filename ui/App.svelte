@@ -1,29 +1,24 @@
 <script>
-  import { config } from "./index.ts";
-  import { set } from "./commands.ts";
+  import Macros from "./Macros.svelte";
+  import Toggles from "./Toggles.svelte";
 </script>
 
-{#each Object.entries(config) as [key, value]}
-  <div>
-    {#if typeof value == "number"}
-      <label for={key}>{key}</label>
-      <input
-        type="number"
-        name={key}
-        bind:value
-        onchange={(e) => set(key, parseInt(e.target.value))}
-      />
-    {:else if typeof value == "boolean"}
-      <label for={key}>{key}</label>
-      <input
-        type="checkbox"
-        name={key}
-        bind:checked={value}
-        onchange={(e) => set(key, e.target.checked)}
-      />
-    {/if}
-  </div>
-{/each}
+<h1>白狐のパワー</h1>
+<Toggles />
+<Macros />
 
-<style lang="scss">
+<style>
+  h1 {
+    position: relative;
+    color: red;
+  }
+
+  h1::after {
+    content: "白狐のパワー";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    text-wrap: nowrap;
+    color: white;
+  }
 </style>

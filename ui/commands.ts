@@ -1,3 +1,3 @@
-export function set(key: string, value: any) {
-    window.parent.postMessage(["set", key, value], "*");
+export function send(...data: any[]) {
+    window.parent.postMessage(data, "*");
 }

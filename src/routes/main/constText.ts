@@ -1,4 +1,4 @@
-let original = unsafeWindow.prompt;
+const original = unsafeWindow.prompt;
 
 document.addEventListener("keydown", e => {
     if (e.key != "g") return;
