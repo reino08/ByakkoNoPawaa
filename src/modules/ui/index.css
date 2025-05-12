@@ -23,3 +23,8 @@
 #bottom-ad-area {
     display: none !important;
 }
+
+div:has(>.liveUsersPanel) {
+    top: 0px !important;
+    height: 100% !important;
+}
