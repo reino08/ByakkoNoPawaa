@@ -1,4 +1,4 @@
-import { onRewrite } from "./index.ts";
+import { onRewrite } from "./index";
 
 onRewrite.then((ctx) => {
     let msgProp = ctx.all.find(

@@ -1,7 +1,7 @@
 import { apiKey } from "../../../config.json";
 import { Forbidden, Login } from "../../routes";
 import { settings } from "../../settings";
-import { delay, onLoad } from "../../utils";
+import { onLoad } from "../../utils";
 
 if (Forbidden || Login)
     onLoad(async () => {
@@ -9,11 +9,9 @@ if (Forbidden || Login)
         const getGenerator = (values: string) => (length: number) => new Array(length).fill(0).map(_ => values[Math.floor(Math.random() * values.length)]).join("");
         const gen = getGenerator(alpha);
 
-        await logout();
         const name = gen(10);
         const token = await create(`${gen(16)}@${gen(16)}.com`, name, gen(20));
         await login(token, name);
-        await delay(1500);
 
         if (settings.username_prefix) {
             let name = settings.username_prefix.trim();
@@ -77,10 +75,6 @@ export async function create(email: string, displayName: string, password: strin
 
 export function login(token: string, name: string): Promise<void> {
     return frameCall(`${document.location.origin}/login?idToken=${token}&name=${encodeURI(name)}&redirect=%2F`);
-}
-
-export function logout(): Promise<void> {
-    return frameCall(`${document.location.origin}/logout`);
 }
 
 async function frameCall(src: string): Promise<void> {

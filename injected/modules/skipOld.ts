@@ -5,7 +5,7 @@ WebSocket = new Proxy(WebSocket, {
         let socket = new (target as any)(...args);
         socket.addEventListener("close", () => {
             if (settings?.auto_reload)
-                window.top.document.location.reload()
+                window.top.document.location.reload();
         });
 
         Object.defineProperty(socket, "onmessage", {

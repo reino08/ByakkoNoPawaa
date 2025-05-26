@@ -1,8 +1,13 @@
 { // For the linter. This file isn't used for compilation.
     "compilerOptions": {
-        "types": ["@violentmonkey/types"],
+        "types": [
+            "@violentmonkey/types"
+        ],
         "noEmit": true,
-        "lib": ["dom", "ES2015"],
+        "lib": [
+            "dom",
+            "ES2017"
+        ],
         "moduleResolution": "bundler",
         "module": "Preserve"
     }
