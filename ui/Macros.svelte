@@ -4,6 +4,7 @@
   let actions = [
     ["Draw random", "randomDraw"],
     ["Spam text", "spamText"],
+    ["Spam copy", "spamCopy"],
   ];
 </script>
 
