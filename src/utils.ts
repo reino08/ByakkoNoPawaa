@@ -1,5 +1,3 @@
-import { Canvas } from "./routes";
-
 export function onLoad(callback: () => void) {
     if (document.readyState == 'complete')
         return callback();
@@ -10,8 +8,6 @@ let token: any;
 let canvas: HTMLCanvasElement | undefined;
 const canvasListeners: ((canvas: HTMLCanvasElement) => void)[] = [];
 export function onCanvas(callback: (canvas: HTMLCanvasElement) => void) {
-    if (!Canvas) return;
-
     if (canvas) return callback(canvas);
     canvasListeners.push(callback);
 
