@@ -5,6 +5,7 @@
     ["Draw random", "randomDraw"],
     ["Spam text", "spamText"],
     ["Spam copy", "spamCopy"],
+    ["Spam redo", "spamRedo"],
   ];
 </script>
 

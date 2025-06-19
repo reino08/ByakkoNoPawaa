@@ -5,6 +5,7 @@ export class Settings {
     skip_old: boolean = false;
     auto_reload: boolean = false;
     username_prefix: string = "";
+    redo_delay_ms: number = 250;
 
     constructor(props?: Partial<Settings>) {
         Object.assign(this, props);
