@@ -8,4 +8,4 @@ export const Forbidden = new Promise(res => {
         if (forbidden) res(undefined);
     });
 });
-export const Canvas = /\/[0-9]{8}-[0-9]{4}-[0-9]{4}/.test(document.location.pathname);
+export const Canvas = /\/\d{8}-\d{4}-\d{4}/.test(document.location.pathname);
